@@ -1,4 +1,4 @@
 memory
 ======
 
-js memory game, made with jasminaxie at GDI SF
+Memory game made at Girl Develop It Pair Programming event with @ana_becker.
