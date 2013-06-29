@@ -1,0 +1,23 @@
+div#cards{
+  width:840px;
+}
+
+  div.card{
+    width:200px;
+    height:200px;
+    float:left;
+    text-align:center;
+    margin: 5px;
+  }
+
+    div.card img{
+      max-width:100%;
+      max-height:100%;
+    }
+
+div.winning{
+  position:absolute;
+  z-index: 3;
+  top:200px;
+  left:230px;
+}

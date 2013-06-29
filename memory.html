@@ -1,0 +1,101 @@
+<html>
+<head>
+  <title>Memory Game</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+</head>
+<body>
+  <div class="winning">
+    <img src="img/winning.jpg">
+  </div>
+  <div id="cards">
+
+</div>
+</body>
+
+  <script type="text/javascript">
+    var cardback = "img/backofcard.jpg",
+        url = "http://lolcat.com/images/lolcats/",
+        boardSize = 4,
+        ext = ".jpg";
+
+    var urlArray = [];
+    
+  function makeURL(){
+    var num = getRandomArbitary(900,1250),
+        lolcat = url+num+ext;
+    urlArray.push(lolcat, lolcat);
+    }
+
+    function getRandomArbitary (min, max) {
+      return Math.floor(Math.random() * (max - min)) + min;
+    }
+
+   while (urlArray.length < boardSize){ 
+    makeURL();
+    }
+
+    urlArray.sort(function() { return 0.5 - Math.random() });
+
+
+    for(var i = 0; i < boardSize; i++){
+      var card = document.createElement("div");
+      card.className = "card";
+      var cardImg = document.createElement("img");
+      cardImg.src = cardback;
+      cardImg.setAttribute("data-source", urlArray[i]);
+      card.appendChild(cardImg);
+      document.getElementById("cards").appendChild(card);
+    }
+
+
+
+    function flipCard(){
+      $(".card").click(function(){
+        var flipped = $(".flipped").size();
+          if(flipped < 2){
+            var facesrc = $(this).find("img").attr("data-source");
+            $(this).find("img").attr("src", facesrc);
+            $(this).find("img").addClass("flipped");
+            var flipped = $(".flipped").size();
+
+            var firstSrc = $(".flipped").eq(0).attr("src");
+            var secondSrc = $(".flipped").eq(1).attr("src");
+
+            if(flipped === 2){
+              if(firstSrc !== secondSrc){
+                flipCardBack();
+              }else{
+                $(".flipped").addClass("win");
+                $(".flipped").removeClass("flipped");
+                winning();
+              }
+            }
+          }
+        console.log(flipped);
+      });
+    }
+
+    function flipCardBack(){
+      window.setTimeout(function(){
+        $(".flipped").attr("src", cardback);
+        $(".flipped").removeClass("flipped");
+      }, 2000);
+    }
+
+    function winning(){
+    //when all the cards are flipped
+      var winning = $(".win").size();
+        if (winning === boardSize) {
+          $(".winning").show();
+        }
+    }
+
+    $(document).ready(function(){
+      $(".winning").hide();
+      flipCard();
+    });
+
+  </script>
+
+</html>
